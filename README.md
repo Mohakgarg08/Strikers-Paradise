@@ -1,1 +1,1 @@
-# Strikers-s-Paradise
+# Strikers Paradise
