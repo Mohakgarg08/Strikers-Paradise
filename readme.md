@@ -22,5 +22,7 @@ The manage products page allows you to add, edit, or delete products.
 The manage products page allows you to add a new product.
 
 ### 4. New Order Screen
-![New Order Screen](screenshots/new_order.png)
-The new orde
+
+The new order
+
+![filed page](screenshots/Field.jpg)
