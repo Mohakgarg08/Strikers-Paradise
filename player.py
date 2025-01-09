@@ -103,6 +103,3 @@ def main_game(mode):
 # Run the intro screen
 game_mode = intro_screen()
 main_game(game_mode)
-
-
-# helloo
