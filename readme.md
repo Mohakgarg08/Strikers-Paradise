@@ -26,3 +26,7 @@ The manage products page allows you to add a new product.
 The new order
 
 ![filed page](Screenshots/Field.jpg)
+
+4. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
