@@ -25,4 +25,4 @@ The manage products page allows you to add a new product.
 
 The new order
 
-![filed page](screenshots/Field.jpg)
+![filed page](Screenshots/Field.jpg)
