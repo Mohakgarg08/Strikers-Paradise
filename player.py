@@ -104,4 +104,3 @@ def main_game(mode):
 game_mode = intro_screen()
 main_game(game_mode)
 
-# hello
