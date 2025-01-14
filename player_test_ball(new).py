@@ -11,7 +11,7 @@ PLAYER_SPEED = 7  # Increased player speed for smoother and faster movement
 BALL_SPEED_X = 3  # Slower ball speed on the x-axis
 BALL_SPEED_Y = 3  # Slower ball speed on the y-axis
 
-#This is setting the screen
+#This is setting the screensssss
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Striker's Paradise")
 
