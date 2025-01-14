@@ -22,41 +22,42 @@ background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREE
 # Load logo image
 logo_image = pygame.image.load('Strikers-Paradise/Images/Logo.png')
 
-# Define player lines for 4-3-2-1 formation
-player1_lines = [100, 200, 300, 400]  # Example y-coordinates for player1 lines
-player2_lines = [100, 200, 300, 400]  # Example y-coordinates for player2 lines
+# Define player y-coordinates for 4-3-2-1 formation
+player1_y_positions = [
+    [100, 200, 300, 400],  # 4 players in defense
+    [150, 250, 350],       # 3 players in midfield
+    [200, 300],            # 2 players in attack
+    [250]                  # 1 player in forward
+]
+player2_y_positions = [
+    [100, 200, 300, 400],  # 4 players in defense
+    [150, 250, 350],       # 3 players in midfield
+    [200, 300],            # 2 players in attack
+    [250]                  # 1 player in forward
+]
 
 # Define player x-coordinates for 4-3-2-1 formation
-player1_x_positions = [
-    [50, 150, 250, 350],  # 4 players
-    [100, 200, 300],      # 3 players
-    [150, 250],           # 2 players
-    [200]                 # 1 player
-]
-player2_x_positions = [
-    [SCREEN_WIDTH - 50, SCREEN_WIDTH - 150, SCREEN_WIDTH - 250, SCREEN_WIDTH - 350],  # 4 players
-    [SCREEN_WIDTH - 100, SCREEN_WIDTH - 200, SCREEN_WIDTH - 300],                    # 3 players
-    [SCREEN_WIDTH - 150, SCREEN_WIDTH - 250],                                        # 2 players
-    [SCREEN_WIDTH - 200]                                                             # 1 player
-]
+player1_x_positions = [50, 150, 250, 350]
+player2_x_positions = [SCREEN_WIDTH - 50, SCREEN_WIDTH - 150, SCREEN_WIDTH - 250, SCREEN_WIDTH - 350]
 
 # Define player class
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, color):
         super().__init__()
         self.image = pygame.Surface((30, 30))  # Smaller player size
-        self.image.fill((255, 0, 0))
+        self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.speed = PLAYER_SPEED
 
-    def update(self, keys, up_key, down_key):
-        if keys[up_key]:
-            self.rect.y -= self.speed
-        if keys[down_key]:
-            self.rect.y += self.speed
-        self.rect.y = max(0, min(self.rect.y, SCREEN_HEIGHT - self.rect.height))  # Keep player within screen bounds
+    def move_up(self):
+        self.rect.y -= self.speed
+        self.rect.y = max(0, self.rect.y)
+
+    def move_down(self):
+        self.rect.y += self.speed
+        self.rect.y = min(SCREEN_HEIGHT - self.rect.height, self.rect.y)
 
 # Define ball class
 class Ball(pygame.sprite.Sprite):
@@ -70,7 +71,7 @@ class Ball(pygame.sprite.Sprite):
         self.speed_x = BALL_SPEED_X
         self.speed_y = BALL_SPEED_Y
 
-    def move(self, ball, players1, players2):
+    def move(self, players1, players2):
         self.rect.x += self.speed_x
         self.rect.y += self.speed_y
 
@@ -102,16 +103,16 @@ class Ball(pygame.sprite.Sprite):
 players1 = []
 players2 = []
 
-# Create players for player1
-for i, y in enumerate(player1_lines):
-    for x in player1_x_positions[i]:
-        player = Player(x, y)
+# Create players for player1 (red color)
+for i, x in enumerate(player1_x_positions):
+    for y in player1_y_positions[i]:
+        player = Player(x, y, (255, 0, 0))
         players1.append(player)
 
-# Create players for player2
-for i, y in enumerate(player2_lines):
-    for x in player2_x_positions[i]:
-        player = Player(x, y)
+# Create players for player2 (blue color)
+for i, x in enumerate(player2_x_positions):
+    for y in player2_y_positions[i]:
+        player = Player(x, y, (0, 0, 255))
         players2.append(player)
 
 # Create ball instance
@@ -128,8 +129,8 @@ running = True
 score_left = 0
 score_right = 0
 mode = 2  # Assuming mode 2 is for two players
-player1_selected_line = 0
-player2_selected_line = 0
+player1_selected_column = 0
+player2_selected_column = 0
 
 while running:
     for event in pygame.event.get():
@@ -139,36 +140,38 @@ while running:
     # Get pressed keys
     keys = pygame.key.get_pressed()
 
-    # Switch selected line for player1
-    if keys[pygame.K_a] and player1_selected_line > 0:
-        player1_selected_line -= 1
-    if keys[pygame.K_d] and player1_selected_line < 3:
-        player1_selected_line += 1
+    # Switch selected column for player1
+    if keys[pygame.K_a] and player1_selected_column > 0:
+        player1_selected_column -= 1
+    if keys[pygame.K_d] and player1_selected_column < len(player1_x_positions) - 1:
+        player1_selected_column += 1
 
-    # Switch selected line for player2
+    # Switch selected column for player2
     if mode == 2:
-        if keys[pygame.K_LEFT] and player2_selected_line > 0:
-            player2_selected_line -= 1
-        if keys[pygame.K_RIGHT] and player2_selected_line < 3:
-            player2_selected_line += 1
+        if keys[pygame.K_LEFT] and player2_selected_column > 0:
+            player2_selected_column -= 1
+        if keys[pygame.K_RIGHT] and player2_selected_column < len(player2_x_positions) - 1:
+            player2_selected_column += 1
 
     # Update player1 positions
-    for i, player in enumerate(players1):
-        if i // (4 - i % 4) == player1_selected_line:
-            for p in players1:
-                if p.rect.x == player.rect.x:
-                    p.update(keys, pygame.K_w, pygame.K_s)
+    for player in players1:
+        if player.rect.x == player1_x_positions[player1_selected_column]:
+            if keys[pygame.K_w]:
+                player.move_up()
+            if keys[pygame.K_s]:
+                player.move_down()
 
     # Update player2 positions
     if mode == 2:
-        for i, player in enumerate(players2):
-            if i // (4 - i % 4) == player2_selected_line:
-                for p in players2:
-                    if p.rect.x == player.rect.x:
-                        p.update(keys, pygame.K_UP, pygame.K_DOWN)
+        for player in players2:
+            if player.rect.x == player2_x_positions[player2_selected_column]:
+                if keys[pygame.K_UP]:
+                    player.move_up()
+                if keys[pygame.K_DOWN]:
+                    player.move_down()
 
     # Ball movement and collision detection
-    scores = ball.move(ball, players1, players2)
+    scores = ball.move(players1, players2)
     score_left += scores[0]
     score_right += scores[1]
 
