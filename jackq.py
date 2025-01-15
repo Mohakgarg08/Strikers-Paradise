@@ -16,15 +16,20 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Striker's Paradise")
 
 # Load and scale background image
-background_image = pygame.image.load('Strikers-Paradise/Images/Field.jpg')
+background_image = pygame.image.load('Images\Field.jpg')
 background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load logo image
-logo_image = pygame.image.load('Strikers-Paradise/Images/Logo.png')
+logo_image = pygame.image.load('Images/Logo.png')
 
+<<<<<<< HEAD:copy.py
 # Load player images
 player1_image = pygame.image.load('Strikers-Paradise/Images/magicstudio-art__11_-removebg-preview.png')
 player2_image = pygame.image.load('Strikers-Paradise/Images/magicstudio-art__10_-removebg-preview.png')
+=======
+player1_image = pygame.image.load('Images\Player1.png')
+player2_image = pygame.image.load('Images\Player1.png')
+>>>>>>> 84366293cb6ba863219b8afb3de82d13b99db420:jackq.py
 
 # Load score sound
 score_sound = pygame.mixer.Sound('Strikers-Paradise/Sounds/mixkit-happy-crowd-cheer-975.wav')

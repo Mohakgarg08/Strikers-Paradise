@@ -16,11 +16,11 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Striker's Paradise")
 
 # Load and scale background image
-background_image = pygame.image.load('Strikers-Paradise\Images\Field.jpg')
+background_image = pygame.image.load('Images\Field.jpg')
 background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load logo image
-logo_image = pygame.image.load('Strikers-Paradise\Images\Logo.png')
+logo_image = pygame.image.load('Images\Logo.png')
 logo_image = pygame.transform.scale(logo_image, (SCREEN_WIDTH // 4, SCREEN_HEIGHT // 4))
 
 # Define colors
