@@ -22,8 +22,8 @@ background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREE
 # Load logo image
 logo_image = pygame.image.load('Images/Logo.png')
 
-player1_image = pygame.image.load('Strikers-Paradise/Images/magicstudio-art__11_-removebg-preview.png')
-player2_image = pygame.image.load('Strikers-Paradise/Images/magicstudio-art__10_-removebg-preview.png')
+player1_image = pygame.image.load('Images\Player1.png')
+player2_image = pygame.image.load('Images\Player1.png')
 
 # Define player y-coordinates for 4-3-2-1 formation
 player1_y_positions = [
