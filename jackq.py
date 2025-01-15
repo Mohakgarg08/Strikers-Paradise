@@ -145,22 +145,34 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            # Switch selected formation for player1
+            if event.key == pygame.K_a:
+                player1_selected_formation -= 1
+                if player1_selected_formation < 0:
+                    player1_selected_formation = total_formations - 1
+                print(f"Player 1 selected formation: {player1_selected_formation}")
+            elif event.key == pygame.K_d:
+                player1_selected_formation += 1
+                if player1_selected_formation >= total_formations:
+                    player1_selected_formation = 0
+                print(f"Player 1 selected formation: {player1_selected_formation}")
+
+            # Switch selected formation for player2
+            if mode == 2:
+                if event.key == pygame.K_RIGHT:
+                    player2_selected_formation -= 1
+                    if player2_selected_formation < 0:
+                        player2_selected_formation = total_formations - 1
+                    print(f"Player 2 selected formation: {player2_selected_formation}")
+                elif event.key == pygame.K_LEFT:
+                    player2_selected_formation += 1
+                    if player2_selected_formation >= total_formations:
+                        player2_selected_formation = 0
+                    print(f"Player 2 selected formation: {player2_selected_formation}")
 
     # Get pressed keys
     keys = pygame.key.get_pressed()
-
-    # Switch selected formation for player1
-    if keys[pygame.K_a]:
-        player1_selected_formation = (player1_selected_formation - 1) % total_formations
-    if keys[pygame.K_d]:
-        player1_selected_formation = (player1_selected_formation + 1) % total_formations
-
-    # Switch selected formation for player2
-    if mode == 2:
-        if keys[pygame.K_LEFT]:
-            player2_selected_formation = (player2_selected_formation - 1) % total_formations
-        if keys[pygame.K_RIGHT]:
-            player2_selected_formation = (player2_selected_formation + 1) % total_formations
 
     # Update player1 positions
     for player in players1:
@@ -193,7 +205,7 @@ while running:
     text = font.render(str(score_left), 1, (255, 255, 255))
     screen.blit(text, (250, 10))
     text = font.render(str(score_right), 1, (255, 255, 255))
-    screen.blit(text, (SCREEN_WIDTH - 250, 10))
+    screen.blit(text, (420, 10))
 
     pygame.display.flip()
     pygame.time.Clock().tick(FPS)
