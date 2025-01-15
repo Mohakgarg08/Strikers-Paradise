@@ -22,8 +22,12 @@ background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREE
 # Load logo image
 logo_image = pygame.image.load('Strikers-Paradise/Images/Logo.png')
 
+# Load player images
 player1_image = pygame.image.load('Strikers-Paradise/Images/magicstudio-art__11_-removebg-preview.png')
 player2_image = pygame.image.load('Strikers-Paradise/Images/magicstudio-art__10_-removebg-preview.png')
+
+# Load score sound
+score_sound = pygame.mixer.Sound('Strikers-Paradise/Sounds/mixkit-happy-crowd-cheer-975.wav')
 
 # Define player y-coordinates for 4-3-2-1 formation
 player1_y_positions = [
@@ -45,10 +49,9 @@ player2_x_positions = [SCREEN_WIDTH - 50, SCREEN_WIDTH - 150, SCREEN_WIDTH - 250
 
 # Define player class
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, color):
+    def __init__(self, x, y, image):
         super().__init__()
-        self.image = pygame.Surface((30, 30))  # Smaller player size
-        self.image.fill(color)
+        self.image = pygame.transform.scale(image, (30, 30))  # Scale player image to fit the player size
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -95,10 +98,12 @@ class Ball(pygame.sprite.Sprite):
             score_right = 1
             self.rect.x = SCREEN_WIDTH // 2
             self.rect.y = SCREEN_HEIGHT // 2
+            pygame.mixer.Sound.play(score_sound)  # Play score sound
         if self.rect.right >= SCREEN_WIDTH:
             score_left = 1
             self.rect.x = SCREEN_WIDTH // 2
             self.rect.y = SCREEN_HEIGHT // 2
+            pygame.mixer.Sound.play(score_sound)  # Play score sound
 
         return score_left, score_right
 
@@ -106,16 +111,16 @@ class Ball(pygame.sprite.Sprite):
 players1 = []
 players2 = []
 
-# Create players for player1 (red color)
+# Create players for player1 (using player1_image)
 for i, x in enumerate(player1_x_positions):
     for y in player1_y_positions[i]:
-        player = Player(x, y, (255, 0, 0))
+        player = Player(x, y, player1_image)
         players1.append(player)
 
-# Create players for player2 (blue color)
+# Create players for player2 (using player2_image)
 for i, x in enumerate(player2_x_positions):
     for y in player2_y_positions[i]:
-        player = Player(x, y, (0, 0, 255))
+        player = Player(x, y, player2_image)
         players2.append(player)
 
 # Create ball instance
