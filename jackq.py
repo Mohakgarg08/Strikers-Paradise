@@ -8,8 +8,8 @@ SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 700
 FPS = 30
 PLAYER_SPEED = 7  # Increased player speed for smoother and faster movement
-BALL_SPEED_X = 3  # Slower ball speed on the x-axis
-BALL_SPEED_Y = 3  # Slower ball speed on the y-axis
+BALL_SPEED_X = 5  # Slower ball speed on the x-axis
+BALL_SPEED_Y = 5  # Slower ball speed on the y-axis
 
 # This is setting the screensssss
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -23,8 +23,9 @@ background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREE
 logo_image = pygame.image.load('Images/Logo.png')
 
 # Load player images
-player1_image = pygame.image.load('Images\Player1.png')
-player2_image = pygame.image.load('Images\Player1.png')
+player1_image = pygame.image.load('Images\characterBlue.png')
+player2_image = pygame.image.load('Images\characterRed.png')
+ball_image = pygame.image.load('Images\Ball.png')
 
 # Load score sound
 score_sound = pygame.mixer.Sound('Audio/mixkit-happy-crowd-cheer-975.wav')
@@ -67,10 +68,9 @@ class Player(pygame.sprite.Sprite):
 
 # Define ball class
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y,image):
         super().__init__()
-        self.image = pygame.Surface((20, 20))
-        self.image.fill((0, 255, 0))
+        self.image = pygame.transform.scale(image, (20, 20))  # Scale player image to fit the player size
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -124,7 +124,7 @@ for i, x in enumerate(player2_x_positions):
         players2.append(player)
 
 # Create ball instance
-ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, ball_image)
 
 # Create sprite groups
 all_sprites = pygame.sprite.Group()
