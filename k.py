@@ -16,19 +16,19 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Striker's Paradise")
 
 # Load and scale background image
-background_image = pygame.image.load('Images\Field.jpg')
+background_image = pygame.image.load('Strikers-Paradise/Images\Field.jpg')
 background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load logo image
-logo_image = pygame.image.load('Images/Logo.png')
+logo_image = pygame.image.load('Strikers-Paradise/Images/Logo.png')
 
 # Load player images
-player1_image = pygame.image.load('Images\characterBlue.png')
-player2_image = pygame.image.load('Images\characterRed.png')
-ball_image = pygame.image.load('Images\Ball.png')
+player1_image = pygame.image.load('Strikers-Paradise/Images\characterBlue.png')
+player2_image = pygame.image.load('Strikers-Paradise/Images\characterRed.png')
+ball_image = pygame.image.load('Strikers-Paradise/Images\Ball.png')
 
 # Load score sound
-score_sound = pygame.mixer.Sound('Audio/mixkit-happy-crowd-cheer-975.wav')
+score_sound = pygame.mixer.Sound('Strikers-Paradise/Audio/stadium-crowd-cheer-noise-loud_77bpm.wav')
 
 # Define player y-coordinates for 4-3-2-1 formation
 player1_y_positions = [
