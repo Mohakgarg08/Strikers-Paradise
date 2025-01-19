@@ -16,19 +16,32 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Striker's Paradise")
 
 # Load and scale background image
-background_image = pygame.image.load('Images\Field.jpg')
+background_image = pygame.image.load('Strikers-Paradise/Images/Field.jpg')
 background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load logo image
-logo_image = pygame.image.load('Images/Logo.png')
+logo_image = pygame.image.load('Strikers-Paradise/Images/Logo.png')
 
 # Load player images
+<<<<<<< HEAD
 player1_image = pygame.image.load('Images\characterBlue.png')
 player2_image = pygame.image.load('Images\characterRed.png')
 ball_image = pygame.image.load('Images\Ball.png')
+=======
+player1_image = pygame.image.load('Strikers-Paradise/Images/characterBlue (4).png')
+player2_image = pygame.image.load('Strikers-Paradise/Images/characterRed (2).png')
+
+# Scale player images to fit the player size
+player1_image = pygame.transform.scale(player1_image, (60, 60))  # Adjust the size as needed
+player2_image = pygame.transform.scale(player2_image, (60, 60))  # Adjust the size as needed
+
+# Load ball image
+ball_image = pygame.image.load('Strikers-Paradise/Images/ball_soccer2.png')
+ball_image = pygame.transform.scale(ball_image, (20, 20))  # Adjust the size as needed
+>>>>>>> f9820492ba9bc0437a5df5c8e7acdd516745dae6
 
 # Load score sound
-score_sound = pygame.mixer.Sound('Audio/mixkit-happy-crowd-cheer-975.wav')
+score_sound = pygame.mixer.Sound('Strikers-Paradise/Audio/mixkit-happy-crowd-cheer-975.wav')
 
 # Define player y-coordinates for 4-3-2-1 formation
 player1_y_positions = [
@@ -52,7 +65,7 @@ player2_x_positions = [SCREEN_WIDTH - 50, SCREEN_WIDTH - 150, SCREEN_WIDTH - 250
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, image):
         super().__init__()
-        self.image = pygame.transform.scale(image, (30, 30))  # Scale player image to fit the player size
+        self.image = image
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -68,9 +81,15 @@ class Player(pygame.sprite.Sprite):
 
 # Define ball class
 class Ball(pygame.sprite.Sprite):
+<<<<<<< HEAD
     def __init__(self, x, y,image):
         super().__init__()
         self.image = pygame.transform.scale(image, (20, 20))  # Scale player image to fit the player size
+=======
+    def __init__(self, x, y, image):
+        super().__init__()
+        self.image = image
+>>>>>>> f9820492ba9bc0437a5df5c8e7acdd516745dae6
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -137,46 +156,33 @@ running = True
 score_left = 0
 score_right = 0
 mode = 2  # Assuming mode 2 is for two players
-player1_selected_formation = 0
-player2_selected_formation = 0
-total_formations = 4  # Assuming there are 4 formations
+player1_selected_column = 0
+player2_selected_column = 0
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN:
-            # Switch selected formation for player1
-            if event.key == pygame.K_a:
-                player1_selected_formation -= 1
-                if player1_selected_formation < 0:
-                    player1_selected_formation = total_formations - 1
-                print(f"Player 1 selected formation: {player1_selected_formation}")
-            elif event.key == pygame.K_d:
-                player1_selected_formation += 1
-                if player1_selected_formation >= total_formations:
-                    player1_selected_formation = 0
-                print(f"Player 1 selected formation: {player1_selected_formation}")
-
-            # Switch selected formation for player2
-            if mode == 2:
-                if event.key == pygame.K_RIGHT:
-                    player2_selected_formation -= 1
-                    if player2_selected_formation < 0:
-                        player2_selected_formation = total_formations - 1
-                    print(f"Player 2 selected formation: {player2_selected_formation}")
-                elif event.key == pygame.K_LEFT:
-                    player2_selected_formation += 1
-                    if player2_selected_formation >= total_formations:
-                        player2_selected_formation = 0
-                    print(f"Player 2 selected formation: {player2_selected_formation}")
 
     # Get pressed keys
     keys = pygame.key.get_pressed()
 
+    # Switch selected column for player1
+    if keys[pygame.K_a] and player1_selected_column > 0:
+        player1_selected_column -= 1
+    if keys[pygame.K_d] and player1_selected_column < len(player1_x_positions) - 1:
+        player1_selected_column += 1
+
+    # Switch selected column for player2
+    if mode == 2:
+        if keys[pygame.K_LEFT] and player2_selected_column > 0:
+            player2_selected_column -= 1
+        if keys[pygame.K_RIGHT] and player2_selected_column < len(player2_x_positions) - 1:
+            player2_selected_column += 1
+
     # Update player1 positions
     for player in players1:
-        if player.rect.x == player1_x_positions[player1_selected_formation]:
+        if player.rect.x == player1_x_positions[player1_selected_column]:
             if keys[pygame.K_w]:
                 player.move_up()
             if keys[pygame.K_s]:
@@ -185,7 +191,7 @@ while running:
     # Update player2 positions
     if mode == 2:
         for player in players2:
-            if player.rect.x == player2_x_positions[player2_selected_formation]:
+            if player.rect.x == player2_x_positions[player2_selected_column]:
                 if keys[pygame.K_UP]:
                     player.move_up()
                 if keys[pygame.K_DOWN]:
@@ -205,7 +211,7 @@ while running:
     text = font.render(str(score_left), 1, (255, 255, 255))
     screen.blit(text, (250, 10))
     text = font.render(str(score_right), 1, (255, 255, 255))
-    screen.blit(text, (420, 10))
+    screen.blit(text, (SCREEN_WIDTH - 250, 10))
 
     pygame.display.flip()
     pygame.time.Clock().tick(FPS)
