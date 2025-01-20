@@ -1,19 +1,17 @@
-import pygame
-import sys
+import pygame, sys
 import random
 
 # Initialize Pygame
 pygame.init()
 
-# Screen dimensions and settings
-SCREEN_WIDTH = 900  # Increased screen width for better gameplay
-SCREEN_HEIGHT = 700 # Increased screen height for better gameplay
-FPS = 30 # Frames per second
+SCREEN_WIDTH = 900
+SCREEN_HEIGHT = 700
+FPS = 30
 PLAYER_SPEED = 7  # Increased player speed for smoother and faster movement
 BALL_SPEED_X = 5  # Slower ball speed on the x-axis
 BALL_SPEED_Y = 5  # Slower ball speed on the y-axis
 
-# Set up the display
+# This is setting the screensssss
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Striker's Paradise")
 
@@ -21,23 +19,17 @@ pygame.display.set_caption("Striker's Paradise")
 background_image = pygame.image.load('Images/Field.jpg')
 background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
-# Load and scale logo image
+# Load logo image
 logo_image = pygame.image.load('Images/Logo.png')
-logo_image = pygame.transform.scale(logo_image, (logo_image.get_width() // 2, logo_image.get_height() // 2))
-
+logo_image = pygame.transform.scale(logo_image, (SCREEN_WIDTH // 4, SCREEN_HEIGHT // 4))
 # Load player images
 player1_image = pygame.image.load('Images/characterBlue.png')
 player2_image = pygame.image.load('Images/characterRed.png')
-
-# Load ball image
 ball_image = pygame.image.load('Images/Ball.png')
-
-# Load game sound
-game_sound = pygame.mixer.Sound('Audio/gamesound.wav')
 
 # Load score sound
 score_sound = pygame.mixer.Sound('Audio/stadium-crowd-cheer-noise-loud_77bpm.wav')
-
+game_sound = pygame.mixer.Sound('Audio/Gamesound.wav')
 # Define player y-coordinates for 4-3-2-1 formation
 player1_y_positions = [
     [100, 200, 300, 400],  # 4 players in defense
@@ -45,7 +37,6 @@ player1_y_positions = [
     [200, 300],            # 2 players in attack
     [250]                  # 1 player in forward
 ]
-
 player2_y_positions = [
     [100, 200, 300, 400],  # 4 players in defense
     [150, 250, 350],       # 3 players in midfield
@@ -155,7 +146,8 @@ def main_menu():
 
         screen.fill((255, 255, 255))
         screen.blit(background_image, (0, 0))
-        screen.blit(logo_image, (SCREEN_WIDTH // 2 - logo_image.get_width() // 2, 50))
+        screen.blit(logo_image, (SCREEN_WIDTH // 2 - logo_image.get_width() // 2, 100))
+
 
         font = pygame.font.Font(None, 74)
         small_font = pygame.font.Font(None, 36)

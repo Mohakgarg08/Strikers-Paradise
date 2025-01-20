@@ -23,22 +23,9 @@ background_image = pygame.transform.scale(background_image, (SCREEN_WIDTH, SCREE
 logo_image = pygame.image.load('Strikers-Paradise/Images/Logo.png')
 
 # Load player images
-<<<<<<< HEAD
 player1_image = pygame.image.load('Images\characterBlue.png')
 player2_image = pygame.image.load('Images\characterRed.png')
 ball_image = pygame.image.load('Images\Ball.png')
-=======
-player1_image = pygame.image.load('Strikers-Paradise/Images/characterBlue (4).png')
-player2_image = pygame.image.load('Strikers-Paradise/Images/characterRed (2).png')
-
-# Scale player images to fit the player size
-player1_image = pygame.transform.scale(player1_image, (60, 60))  # Adjust the size as needed
-player2_image = pygame.transform.scale(player2_image, (60, 60))  # Adjust the size as needed
-
-# Load ball image
-ball_image = pygame.image.load('Strikers-Paradise/Images/ball_soccer2.png')
-ball_image = pygame.transform.scale(ball_image, (20, 20))  # Adjust the size as needed
->>>>>>> f9820492ba9bc0437a5df5c8e7acdd516745dae6
 
 # Load score sound
 score_sound = pygame.mixer.Sound('Strikers-Paradise/Audio/mixkit-happy-crowd-cheer-975.wav')
@@ -81,15 +68,9 @@ class Player(pygame.sprite.Sprite):
 
 # Define ball class
 class Ball(pygame.sprite.Sprite):
-<<<<<<< HEAD
     def __init__(self, x, y,image):
         super().__init__()
         self.image = pygame.transform.scale(image, (20, 20))  # Scale player image to fit the player size
-=======
-    def __init__(self, x, y, image):
-        super().__init__()
-        self.image = image
->>>>>>> f9820492ba9bc0437a5df5c8e7acdd516745dae6
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
